@@ -1,0 +1,22 @@
+#edit your ~/.bashrc, search for your default prompt, comment your default prompt like this one, and add the new git prompt code
+
+#DEFAULT PROMPT
+#if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#else
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
+
+
+#GIT PROMPT
+git_branch() {
+  branch=$(__git_ps1 2> /dev/null)
+  if [ "$branch" = " (master)" ]; then
+     echo -e "\033[31m${branch}\033[00m"
+  else
+     echo -e "\033[35m${branch}\033[00m"
+  fi
+}
+PS1='\u@\h:\[\e[32m\]\w`git_branch` \$ '
+
+unset color_prompt force_color_prompt
