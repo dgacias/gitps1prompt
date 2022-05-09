@@ -12,11 +12,14 @@
 git_branch() {
   branch=$(__git_ps1 2> /dev/null)
   if [ "$branch" = " (master)" ]; then
-     echo -e "\033[31m${branch}\033[00m"
+     echo -e "\033[31m ${branch:1}\033[00m" #red
+  elif [ -z $branch ]
+  then
+    echo -e "\033[00m" #nothing
   else
-     echo -e "\033[35m${branch}\033[00m"
+     echo -e "\033[35m ${branch:1}\033[00m" #purple
   fi
 }
-PS1='\u@\h:\[\e[32m\]\w`git_branch` \$ '
+PS1='\[\e\[\033[01;32m\]\u:\[\033[01;34m\]\w/`git_branch`\$ \[\e[m\]'
 
 unset color_prompt force_color_prompt
